@@ -8,6 +8,7 @@ app = Flask(__name__)
 @app.route('/deployed', methods=['POST'])
 def hook():
     form = {x: request.form[x] for x in request.form}
+    form['git_log'] = form['git_log'].replace("\n", "<br>")
     to_send = {
         'color': 'purple',
         'message': "{user} deployed <a href='{url}'>{app}</a> ({head}):<br>{git_log}".format(**form),
